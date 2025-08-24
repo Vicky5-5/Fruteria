@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Fruteria.ViewModels.CarritoViewModel>
+@{
+    ViewBag.Title = "VerCarrito";
+    var usuario = LoginManager.Instance.GetCurrentUser();
+
+}
+
+<h2>Ver Carrito</h2>
+<h2>Carrito de @(usuario?.Nombre ?? "Invitado")</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idCarrito)
+        </th>
+        <th>
+            Nombre del Producto
+        </th>
+        <th>
+            Stock
+        </th>
+        <th>
+            Cantidad
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.idCarrito)
+            </td>
+            <td>
+                @(item.oProducto != null ? item.oProducto.NombreProducto : "Producto no disponible")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.oProducto.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalProductos)
+            </td>
+            <td>
+                <!--poner accion para añadir o comprar-->
+                @using (Html.BeginForm("ListaCompras", "Carrito", FormMethod.Post))
+                {
+                    @Html.Hidden("idProducto", item.oProducto?.idProducto ?? 0)
+                    @Html.Hidden("idUsuario", usuario.idUsuario)
+                    @Html.Hidden("nombreP", item.oProducto?.NombreProducto ?? "")
+                    @Html.TextBox("cantidad", item.CantidadCompra, new { @class = "form-control", type = "number", min = 1 })
+                    <br />
+                    <button type="submit" class="btn btn-primary">Comprar</button>
+                }
+
+
+
+            </td>
+        </tr>
+    }
+
+</table>

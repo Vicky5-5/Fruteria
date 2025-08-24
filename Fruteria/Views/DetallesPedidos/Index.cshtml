@@ -1,0 +1,68 @@
+﻿@model List<LogicaBiblioteca.Modelos.DetallesPedidos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Detalles de los Pedidos</h2>
+@*PONER COMO TITULO AL ID PEDIDO
+    y hay que hacer otra vista para que el usuario SOLO VEA SUS PEDIDOS*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID Pedido
+            </th>
+
+            <th>
+                Cantidad
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+                Oferta
+            </th>
+            <th>
+                Precio Total
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            if (Model == null)
+            {
+                <tr>
+                    <td>
+                        <h1>NO HAY PEDIDOS</h1>
+                    </td>
+
+                </tr>
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idPedido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oferta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioTotal)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.idProducto })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -1,0 +1,58 @@
+﻿@model LogicaBiblioteca.Modelos.Pedidos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pedidos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPedido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaEstimadaEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEstimadaEntrega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoPedido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idPedido }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

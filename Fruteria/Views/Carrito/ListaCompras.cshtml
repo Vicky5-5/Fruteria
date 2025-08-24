@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Fruteria.ViewModels.CarritoViewModel>
+@{
+    ViewBag.Title = "Mi Carrito";
+    decimal totalCompra = 0;
+}
+
+<h2>Carrito de @LoginManager.Instance.GetCurrentUser()</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+                <th>Oferta</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var subtotal = item.totalProductos;
+                totalCompra += subtotal;
+
+                <tr>
+                    <td><img src="@item.oProducto?.ImagenURL" width="80" height="80" alt="Producto" /></td>
+                    <td>@item.NombreProducto</td>
+                    <td>@item.oProducto.Precio €</td>
+                    <td>@item.oProducto?.Oferta %</td>
+                    <td>@item.CantidadCompra</td>
+                    <td>@subtotal €</td>
+                    <td>
+                        @using (Html.BeginForm("EliminarDelCarrito", "Carrito", FormMethod.Post))
+                        {
+                            @Html.Hidden("idCarrito", item.idCarrito)
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total de la compra: @totalCompra €</h4>
+}
+else
+{
+    <p>No tienes productos en el carrito.</p>
+}

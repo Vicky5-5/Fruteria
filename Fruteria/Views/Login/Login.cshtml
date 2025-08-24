@@ -1,0 +1,130 @@
+﻿@model LogicaBiblioteca.Modelos.Usuario
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 id="texto"><strong><u>Login</u></strong></h2>
+<br />
+<div class="card justify-content-center w-50">
+    <br />
+    @using (Html.BeginForm("Entrar", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+        <div class="card-body justify-content-center row" id="card" action="@Url.Action("Index,Carrito")" method="post">
+            <div class="form-group col-md-12">
+                <h6><strong>Email</strong></h6>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+          
+            <br />
+            <div class="form-group col-md-12">
+                <h6><strong>Contraseña</strong></h6>
+                <div class="col-md-10" id="password">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password", id = "myInput", placeholder = "Contraseña" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class =  "text-danger" })
+                    <input type="checkbox" id="toggle" class="offscreen" onclick="myFunction()">
+                    <label for="toggle" class="switch">
+
+                    </label>
+
+                </div>
+                <h6>¿No tienes cuenta? </h6>@Html.ActionLink("Regístrate", "Registro", "Login")
+                <br />
+                <br />
+                <div class="form-group col-md-6">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="boton" type="submit" value="Entrar" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+</div>
+
+<style>
+    #boton {
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        width: 5vw;
+    }
+
+    #card {
+        justify-content: center;
+        margin-left: 8vw;
+    }
+
+    #texto {
+        text-align: center;
+    }
+
+    #name {
+        width: 200vw;
+    }
+
+    .card {
+        margin-left: 20vw;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 35px;
+        height: 15px;
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 22px;
+        transition: all 0.3s;
+    }
+
+        .switch::after {
+            content: '';
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            border-radius: 22px;
+            background-color: white;
+            top: 1px;
+            left: 1px;
+            transition: all 0.3s;
+        }
+
+    input[type='checkbox']:checked + .switch::after {
+        transform: translateX(20px);
+    }
+
+    input[type='checkbox']:checked + .switch {
+        background-color: #7983ff;
+    }
+
+    .offscreen {
+        position: absolute;
+        left: -9999px;
+    }
+</style>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+
+
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,158 @@
+﻿@model Fruteria.ViewModels.ProductosViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2><strong><u>Introducir Productos</u></strong></h2>
+<br />
+<div class="card">
+
+    @using (Html.BeginForm("Edit", "Productos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-horizontal">
+            <br />
+            <h4 id="fila"><strong>Productos</strong></h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" }) <!--Se comprueba si lo insertado es válido-->
+            <div class="row" id="fila">
+                <div class="form-group col-md-6">
+                    <h6><strong>Nombre del Producto</strong></h6>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { style = "width=500vw", @class = "form-control", placeholder = "Inserta el nombre del Producto", id = "nombre" } }) <!--Para insertarlo-->
+                        @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" }) <!--Marca un mensaje de error-->
+                    </div>
+                </div>
+                <br />
+                <div class="form-group col-md-6">
+                    <h6><strong>Precio</strong></h6>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Precio, "{0:0.00}", new { htmlAttributes = new { style = "width:8vw", @class = "form-control", placeholder = "Precio" } })
+                        @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" }) <!--Gracias al jqueryFixes va los decimales-->
+
+
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row" id="fila">
+                <div class="form-group col-md-6">
+                    <h6><strong>Stock</strong></h6>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { style = "width:8vw", @class = "form-control", placeholder = "Stock" } })
+                        @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group col-md-6">
+                    <h6><strong>Descripción</strong></h6>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", placeholder = "Inserta la descripión del Producto" } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row" id="fila">
+                <div class="form-group col-md-6">
+                    <h6><strong>Oferta</strong></h6>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Oferta, new { htmlAttributes = new { style = "width:8vw", @class = "form-control", placeholder = "Oferta" } })
+                        @Html.ValidationMessageFor(model => model.Oferta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group col-md-6">
+                    <h6><strong>Origen</strong></h6>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Origen, new { htmlAttributes = new { @class = "form-control", placeholder = "Inserta el origen del Producto" } })
+                        @Html.ValidationMessageFor(model => model.Origen, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+            </div>
+
+            <div class="row" id="fila">
+                <div class="form-group col-md-6">
+                    <h6><strong>¿En Temporada?</strong></h6>
+
+                    @Html.DropDownListFor(model => model.EnTemporada, new List<SelectListItem>()
+                    {
+                    new SelectListItem() { Text = "Sí", Value = "True" },
+                    new SelectListItem() { Text = "No", Value = "False"}
+                    }, "Selecciona", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EnTemporada, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+
+                    <h6><strong>Categoria</strong></h6>
+                    <div class="col-md-6">
+                        @Html.EnumDropDownListFor(model => model.Categoria, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" id="fila">
+
+                <div class="form-group col-md-6">
+
+                    <h6><strong>Imagen</strong></h6>
+                    <div class="col-md-6">
+                        <input type="file" name="ImagenProductos" required />
+                        @Html.ValidationMessageFor(model => model.ImagenURL, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+            <br />
+
+
+        </div>
+        <div class="row" id="fila">
+            <div class="form-group col-md-6">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="boton" type="submit" value="Crear" class="btn btn-default" />
+                </div>
+            </div>
+            <br />
+
+            <div class="col-md-6">
+                @Html.ActionLink("Volver", "Index")
+            </div>
+        </div>
+    }
+
+    <br />
+</div>
+<style>
+    #boton {
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        width: 10vw;
+    }
+
+    #fila {
+        margin-left: 10vw;
+    }
+
+    #texto {
+        color: grey;
+    }
+
+    #nombre {
+        width: 100%;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

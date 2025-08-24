@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Fruteria.ViewModels.UsuariosViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Volver a los Productos", "Index", "Productos")
+    <hr />
+    @Html.ActionLink("Crear Usuario", "Create")
+
+</p>
+<div class="card">
+    <table class="table" border="1">
+        <tr>
+            <th>
+                <h5 title="Hola mundo"><strong>Nombre de Usuario</strong></h5> <!--Con el title puedes poner cuadros de dialogo en caso de ser el nombre largo-->
+            </th>
+            <th>
+                <h5><strong>Email</strong></h5>
+            </th>
+            @*<th>
+                    <h5><strong>Contraseña</strong></h5>
+                </th>*@
+            <th>
+                <h5><strong>Estado</strong></h5>
+            </th>
+            <th>
+                <h5><strong>Fecha Registro</strong></h5>
+            </th>
+            <th>
+                <h5><strong>Fecha Baja</strong></h5>
+            </th>
+            <th>
+                <h5><strong>Dirección</strong></h5>
+            </th>
+            <th>
+                <h5><strong>Adminstrador</strong></h5>
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                @*<td>
+                        <span data-password="@item.Password">
+                            @(new string('*', item.Password != null ? item.Password.Length : 0))
+                        </span>
+                    </td>*@
+                <td>
+                    @(item.Estado ? "Activo" : "Inactivo")
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaRegistro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaBaja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+
+                    @(item.Administrador ? "Sí" : "No")
+
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.idUsuario }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.idUsuario }) |
+                    @Html.ActionLink("Borrar", "Delete", new { id = item.idUsuario })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@Html.ActionLink("Log Out", "LogOut", "Login")
+<style>
+    .table, th, td {
+        border: 1px black solid;
+    }
+
+    th {
+       background-color: lightslategrey;
+    }
+</style>
